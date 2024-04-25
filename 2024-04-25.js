@@ -1,15 +1,17 @@
-function arrayDiff(a, b) {
-  console.log(b);
-  if (b.length != 0) {
-    for (i = 0; i <= b.length; i++) {
-      console.log(b);
-      a = a.filter((item) => item !== b[i]);
-    }
-  } else {
-    return a;
-  }
+function narcissistic(value) {
+  let arrDigits = [...String(value)].map((item) => +item);
+  let raisedArr = arrDigits.map((item) => item ** arrDigits.length);
+  console.log(raisedArr);
 
-  return a;
+  let sumRaisedArr = raisedArr.reduce(function (accumulator, item) {
+    return accumulator + item;
+  }, 0);
+
+  if (sumRaisedArr == value) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-console.log(arrayDiff([1, 2, 3], [1, 2]));
+console.log(narcissistic(137));
