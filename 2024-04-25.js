@@ -1,13 +1,16 @@
-function isValidWalk(walk) {
-  //insert brilliant code here
+function solution(str) {
+  let result = [...str];
+  if (result.length % 2 != 0) result.push("_");
+  let newResult = [];
 
-  let N = walk.filter((item) => item == "n").length;
-  let S = walk.filter((item) => item == "s").length;
-  let W = walk.filter((item) => item == "w").length;
-  let E = walk.filter((item) => item == "e").length;
+  for (i = 0; i < result.length; i++) {
+    if (i % 2 == 0) {
+      newResult[i / 2] = result[i];
+    } else {
+      newResult[(i - 1) / 2] = newResult[(i - 1) / 2] + result[i];
+    }
+  }
 
-  if ((N == S) & (W == E) & (N + S + W + E == 10)) return true;
-
-  return false;
+  return newResult;
 }
-console.log(isValidWalk(["n", "s", "n", "s", "n", "s", "n", "s", "n", "s"]));
+console.log(solution("stringh"));
