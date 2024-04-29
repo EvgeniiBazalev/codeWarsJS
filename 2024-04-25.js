@@ -1,16 +1,19 @@
-function solution(str) {
-  let result = [...str];
-  if (result.length % 2 != 0) result.push("_");
-  let newResult = [];
+function humanReadable(seconds) {
+  let addZiroHandler = (data) => {
+    data < 10 ? (data = "0" + data) : data;
 
-  for (i = 0; i < result.length; i++) {
-    if (i % 2 == 0) {
-      newResult[i / 2] = result[i];
-    } else {
-      newResult[(i - 1) / 2] = newResult[(i - 1) / 2] + result[i];
-    }
-  }
+    return data;
+  };
 
-  return newResult;
+  let HH = Math.floor(seconds / 3600);
+  HH = addZiroHandler(HH);
+
+  let MM = Math.floor((seconds - HH * 3600) / 60);
+  MM = addZiroHandler(MM);
+
+  let SS = seconds - HH * 3600 - MM * 60;
+  SS = addZiroHandler(SS);
+
+  return `${HH}:${MM}:${SS}`;
 }
-console.log(solution("stringh"));
+console.log(humanReadable(360));
