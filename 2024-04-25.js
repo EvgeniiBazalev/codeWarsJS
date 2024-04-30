@@ -1,19 +1,21 @@
-function humanReadable(seconds) {
-  let addZiroHandler = (data) => {
-    data < 10 ? (data = "0" + data) : data;
+function firstNonRepeatingLetter(s) {
+  let splitArr = [...s];
+  let splitArrLowerCase = [...s.toLowerCase()];
 
-    return data;
-  };
+  let test = s.match(new RegExp(s[0], "gi"));
+  console.log(test);
+  let result = "";
 
-  let HH = Math.floor(seconds / 3600);
-  HH = addZiroHandler(HH);
+  for (i = 0; i < splitArr.length; i++) {
+    let item = splitArrLowerCase[i];
+    let arrChar = splitArrLowerCase.filter((char) => char == item);
 
-  let MM = Math.floor((seconds - HH * 3600) / 60);
-  MM = addZiroHandler(MM);
+    if (arrChar.length == 1) {
+      result = splitArr[i];
+      i = splitArr.length;
+    }
+  }
 
-  let SS = seconds - HH * 3600 - MM * 60;
-  SS = addZiroHandler(SS);
-
-  return `${HH}:${MM}:${SS}`;
+  return result;
 }
-console.log(humanReadable(360));
+console.log(firstNonRepeatingLetter("moonman"));
