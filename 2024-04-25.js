@@ -1,21 +1,17 @@
-function firstNonRepeatingLetter(s) {
-  let splitArr = [...s];
-  let splitArrLowerCase = [...s.toLowerCase()];
+function deleteNth(arr, n) {
+  let statistic = {};
+  let clearedArr = [];
 
-  let test = s.match(new RegExp(s[0], "gi"));
-  console.log(test);
-  let result = "";
-
-  for (i = 0; i < splitArr.length; i++) {
-    let item = splitArrLowerCase[i];
-    let arrChar = splitArrLowerCase.filter((char) => char == item);
-
-    if (arrChar.length == 1) {
-      result = splitArr[i];
-      i = splitArr.length;
+  arr.forEach((item) => {
+    if (statistic[item]) {
+      statistic[item]++;
+    } else {
+      statistic[item] = 1;
     }
-  }
 
-  return result;
+    if (statistic[item] <= n) clearedArr.push(item);
+  });
+
+  return clearedArr;
 }
-console.log(firstNonRepeatingLetter("moonman"));
+console.log(deleteNth([20, 37, 20, 21], 1));
