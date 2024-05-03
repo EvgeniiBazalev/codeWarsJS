@@ -1,80 +1,14 @@
-function sumIntervals(intervals) {
-  console.log(`i = ${i}`);
-  function clearedIntervals(intervals) {
-    for (i = 0; i < intervals.length; i++) {
-      for (j = 0; j < intervals.length; j++) {
-        if (j == i) j = i + 1;
-
-        console.log(`j = ${j}`);
-
-        if (intervals[j] && intervals[i]) {
-          if (
-            intervals[j][0] >= intervals[i][0] &&
-            intervals[i][1] >= intervals[j][1]
-          ) {
-            console.log("splice j");
-
-            intervals.splice(j, 1);
-
-            j != 0 ? j-- : null;
-          } else if (
-            intervals[j][0] <= intervals[i][0] &&
-            intervals[i][1] <= intervals[j][1]
-          ) {
-            console.log("splice i");
-            intervals.splice(i, 1);
-            j = 0;
-          }
-        }
-      }
-    }
-    return intervals;
-  }
-
-  intervals = clearedIntervals(intervals);
-  intervals.sort((a, b) => a[0] - b[0]);
-  console.log(intervals);
-
-  for (i = 0; i < intervals.length; i++) {
-    for (j = 0; j < intervals.length; j++) {
-      if (j == i) j = i + 1;
-
-      if (intervals[j] && intervals[i]) {
-        if (
-          intervals[i][0] >= intervals[j][0] &&
-          intervals[i][1] >= intervals[j][1] &&
-          intervals[j][1] > intervals[i][0]
-        ) {
-          intervals[j][1] = intervals[i][0];
-          j != 0 ? j-- : null;
-        } else if (
-          intervals[i][0] <= intervals[j][0] &&
-          intervals[i][1] <= intervals[j][1] &&
-          intervals[j][0] < intervals[i][1]
-        ) {
-          intervals[i][1] = intervals[j][0];
-          j = 0;
-        }
-      }
+function solution(list) {
+  let result = "" + list[0];
+  let splitter = ",";
+  for (let i = 1; i < list.length; i++) {
+    if ((list[i - 1] + 1 == list[i]) == list[i + 1] - 1) {
     }
   }
-
-  console.log(intervals);
-
-  let allIntervals = intervals.reduce((accumulator, item) => {
-    return accumulator + item[1] - item[0];
-  }, 0);
-
-  return allIntervals;
 }
 console.log(
-  sumIntervals([
-    [12, 21],
-    [19, 26],
-    [15, 21],
-    [10, 20],
-    [16, 22],
-    [3, 11],
-    [-18, -11],
+  solution([
+    -10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18,
+    19, 20,
   ])
 );
