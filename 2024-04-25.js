@@ -1,10 +1,16 @@
 function solution(list) {
-  let result = "" + list[0];
+  let result = list[0];
   let splitter = ",";
   for (let i = 1; i < list.length; i++) {
-    if ((list[i - 1] + 1 == list[i]) == list[i + 1] - 1) {
+    if (list[i - 1] + 1 == list[i] && list[i] == list[i + 1] - 1) {
+      splitter = "-";
+    } else {
+      result += splitter + list[i];
+      splitter = ",";
     }
   }
+
+  return result;
 }
 console.log(
   solution([
