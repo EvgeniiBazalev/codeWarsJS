@@ -16,25 +16,29 @@ function getPINs(observed) {
 
   let result = [];
 
-  function pushInResult(string, comboRes) {
+  function pushInResult(string) {
     for (let i = 0; i < string.length; i++) {
-      let combination = comboRes;
-      if (string.length > 1) {
-        pushInResult(string.slice(1), combination);
-      } else {
-        for (let j = 0; j < variables[observed[i]].length; j++) {
-          result.push(combination + variables[observed[i]][j]);
+      for (let j = 0; j < variables[string[i]].length; j++) {
+        if (string.length > 1 && string[i + 1]) {
+          let combo1 = variables[string[i]][j].toString();
+          for (let k = 0; k < variables[string[i + 1]].length; k++) {
+            let combo2 = combo1 + variables[string[i + 1]][k].toString();
+
+            result.push(combo2);
+          }
+        } else {
+          result.push(variables[string[i]][j]);
         }
       }
     }
   }
 
-  pushInResult(observed, "");
+  pushInResult(observed);
 
   return result;
 }
 
-console.log(getPINs(123));
+console.log(getPINs(12));
 /* 
 ┌───┬───┬───┐
 │ 1 │ 2 │ 3 │
