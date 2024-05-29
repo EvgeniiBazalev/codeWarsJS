@@ -16,29 +16,32 @@ function getPINs(observed) {
 
   let result = [];
 
-  function pushInResult(string) {
+  function pushInResult(string, current) {
+    /*     console.log(
+      `запускается pushInResult string = ${string} current = ${current}`
+    ); */
     for (let i = 0; i < string.length; i++) {
       for (let j = 0; j < variables[string[i]].length; j++) {
-        if (string.length > 1 && string[i + 1]) {
-          let combo1 = variables[string[i]][j].toString();
-          for (let k = 0; k < variables[string[i + 1]].length; k++) {
-            let combo2 = combo1 + variables[string[i + 1]][k].toString();
-
-            result.push(combo2);
-          }
+        let newCurrent = current + variables[string[i]][j].toString();
+        /*         console.log(
+          `запускается цикл string = ${string} current = ${current} newCurrent = ${newCurrent}`
+        ); */
+        if (string.length > i + 1) {
+          pushInResult(string.slice(1), newCurrent);
         } else {
-          result.push(variables[string[i]][j]);
+          result.push(newCurrent);
         }
       }
     }
   }
 
-  pushInResult(observed);
+  pushInResult(observed, "");
 
-  return result;
+  return result.filter((item) => item.length == observed.length);
 }
 
-console.log(getPINs(12));
+console.log(getPINs(369));
+/* "369": ["339","366","399","658","636","258","268","669","668","266","369","398","256","296","259","368","638","396","238","356","659","639","666","359","336","299","338","696","269","358","656","698","699","298","236","239"] */
 /* 
 ┌───┬───┬───┐
 │ 1 │ 2 │ 3 │
