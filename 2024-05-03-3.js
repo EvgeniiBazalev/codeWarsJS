@@ -17,27 +17,19 @@ function getPINs(observed) {
   let result = [];
 
   function pushInResult(string, current) {
-    /*     console.log(
-      `запускается pushInResult string = ${string} current = ${current}`
-    ); */
-    for (let i = 0; i < string.length; i++) {
-      for (let j = 0; j < variables[string[i]].length; j++) {
-        let newCurrent = current + variables[string[i]][j].toString();
-        /*         console.log(
-          `запускается цикл string = ${string} current = ${current} newCurrent = ${newCurrent}`
-        ); */
-        if (string.length > i + 1) {
-          pushInResult(string.slice(1), newCurrent);
-        } else {
-          result.push(newCurrent);
-        }
+    for (let j = 0; j < variables[string[0]].length; j++) {
+      let newCurrent = current + variables[string[0]][j].toString();
+
+      if (string.length > 1) {
+        pushInResult(string.slice(1), newCurrent);
+      } else {
+        result.push(newCurrent);
       }
     }
   }
 
   pushInResult(observed, "");
-
-  return result.filter((item) => item.length == observed.length);
+  return result;
 }
 
 console.log(getPINs(369));
