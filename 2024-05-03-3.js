@@ -1,47 +1,46 @@
-function sumIntervals(intervals) {
-  intervals.sort((a, b) => a[0] - b[0] || b[1] - a[1]);
-  intervals = intervals.filter((item) => item[0] != item[1]);
-  console.log(intervals);
-  for (i = 0; i < intervals.length; i++) {
-    if (
-      intervals[i + 1] &&
-      intervals[i + 1][0] >= intervals[i][0] &&
-      intervals[i + 1][1] <= intervals[i][1]
-    ) {
-      intervals.splice(i + 1, 1);
-      i--;
-      continue;
-    }
+let variables = {
+  1: [1, 2, 4],
+  2: [2, 1, 3, 5],
+  3: [3, 2, 6],
+  4: [4, 1, 5, 7],
+  5: [5, 2, 4, 6, 8],
+  6: [6, 3, 5, 9],
+  7: [7, 4, 8],
+  8: [8, 5, 7, 9, 0],
+  9: [9, 6, 8],
+  0: [0, 8],
+};
 
-    if (intervals[i + 1] && intervals[i][1] > intervals[i + 1][0]) {
-      intervals[i][1] = intervals[i + 1][0];
-    }
-    if (intervals[i + 1] && intervals[i][1] > intervals[i + 1][1]) {
-      intervals[i + 1][1] = intervals[i + 1][0];
+function getPINs(observed) {
+  observed = observed.toString();
+
+  let result = [];
+
+  function pushInResult(string, current) {
+    for (let j = 0; j < variables[string[0]].length; j++) {
+      let newCurrent = current + variables[string[0]][j].toString();
+
+      if (string.length > 1) {
+        pushInResult(string.slice(1), newCurrent);
+      } else {
+        result.push(newCurrent);
+      }
     }
   }
 
-  console.log(intervals);
-
-  let allIntervals = intervals.reduce((accumulator, item) => {
-    return accumulator + item[1] - item[0];
-  }, 0);
-
-  return allIntervals;
+  pushInResult(observed, "");
+  return result;
 }
-console.log(
-  sumIntervals([
-    [1, 20],
-    [2, 19],
-    [5, 15],
-    [8, 12],
-  ])
-);
-/* console.log(
-    sumIntervals([
-      [1, 20],
-      [2, 19],
-      [5, 15],
-      [8, 12],
-    ])
-  ); */
+
+console.log(getPINs(369));
+/* "369": ["339","366","399","658","636","258","268","669","668","266","369","398","256","296","259","368","638","396","238","356","659","639","666","359","336","299","338","696","269","358","656","698","699","298","236","239"] */
+/* 
+┌───┬───┬───┐
+│ 1 │ 2 │ 3 │
+├───┼───┼───┤
+│ 4 │ 5 │ 6 │
+├───┼───┼───┤
+│ 7 │ 8 │ 9 │
+└───┼───┼───┘
+    │ 0 │
+    └───┘ */
