@@ -1,14 +1,25 @@
-function solution(list) {
-  let result = "" + list[0];
-  let splitter = ",";
-  for (let i = 1; i < list.length; i++) {
-    if ((list[i - 1] + 1 == list[i]) == list[i + 1] - 1) {
-    }
+const snail = function (array) {
+  let result = [];
+
+  for (let i = 0; i < array.length; i++) {
+    result.push(array[0][i]);
   }
-}
-console.log(
-  solution([
-    -10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18,
-    19, 20,
-  ])
-);
+
+  for (let i = 1; i < array.length; i++) {
+    result.push(array[i][array.length - 1]);
+  }
+
+  for (let i = array.length - 1; i < array.length; i++) {
+    result.push(array[i][array.length - 1]);
+  }
+
+  return result;
+};
+
+let array = [
+  [1, 2, 3],
+  [8, 9, 4],
+  [7, 6, 5],
+];
+
+console.log(snail(array));
